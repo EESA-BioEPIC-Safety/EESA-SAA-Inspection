@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>BELLA Lab QUEST Inspection</title>
+<title>EESA Hazardous Waste Management Inspection</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f0f2f5;color:#1a1a1a;padding-bottom:80px;-webkit-text-size-adjust:100%}
 .header{background:linear-gradient(135deg,#1a365d 0%,#2563eb 100%);color:#fff;padding:20px 16px 14px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.2)}
-.header h1{font-size:1.3em;margin-bottom:2px}
+.header h1{font-size:1.2em;margin-bottom:2px}
 .header p{font-size:.78em;opacity:.85}
 .progress-bar{width:100%;height:4px;background:rgba(255,255,255,.2);margin-top:10px;border-radius:2px;overflow:hidden}
 .progress-fill{height:100%;background:#34d399;width:0%;transition:width .4s ease;border-radius:2px}
@@ -21,45 +21,36 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .section{display:none;padding:16px;animation:fadeIn .3s ease}
 .section.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.section-title{font-size:1.2em;color:#1a365d;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #2563eb}
+.section-title{font-size:1.15em;color:#1a365d;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #2563eb}
 .card{background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);border:1px solid #e5e7eb}
-.card.triage-card{border-left:4px solid #2563eb;background:#f0f7ff}
 .card.error{border-color:#dc2626;box-shadow:0 0 0 3px rgba(220,38,38,.15)}
 .q{display:block;font-weight:600;font-size:.92em;margin-bottom:10px;color:#1e293b;line-height:1.4}
 .q.required::after{content:' *';color:#dc2626}
 .radio-group{display:flex;gap:8px;flex-wrap:wrap}
-.radio-group label{flex:1;min-width:70px;cursor:pointer}
+.radio-group label{flex:1;min-width:90px;cursor:pointer}
 .radio-group label span{display:block;text-align:center;padding:10px 8px;border:2px solid #e2e8f0;border-radius:8px;font-size:.85em;font-weight:500;transition:all .2s ease;background:#fff}
 .radio-group input[type="radio"]{display:none}
 .radio-group input[type="radio"]:checked+span{border-color:#2563eb;background:#eff6ff;color:#1d4ed8;font-weight:600}
 input[type="text"],input[type="date"],textarea,select{width:100%;padding:10px 12px;border:2px solid #e2e8f0;border-radius:8px;font-size:.95em;font-family:inherit;transition:border-color .2s;-webkit-appearance:none}
 input[type="text"]:focus,input[type="date"]:focus,textarea:focus,select:focus{outline:none;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
 input.error,select.error,textarea.error{border-color:#dc2626;box-shadow:0 0 0 3px rgba(220,38,38,.15)}
-textarea{min-height:80px;resize:vertical}
-select{background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 12px center;padding-right:32px}
-.matrix-table{width:100%;border-collapse:collapse;font-size:.85em;margin-top:6px}
-.matrix-table th,.matrix-table td{padding:10px 6px;border-bottom:1px solid #f1f5f9;text-align:center}
-.matrix-table th{font-weight:600;color:#475569;font-size:.85em}
-.matrix-table td:first-child{text-align:left;font-weight:500}
-.matrix-table input[type="radio"]{display:inline-block;width:18px;height:18px;accent-color:#2563eb}
+textarea{min-height:90px;resize:vertical}
 .btn-row{display:flex;gap:10px;padding:16px;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;box-shadow:0 -2px 10px rgba(0,0,0,.05);z-index:100}
 .btn{flex:1;padding:14px;border:none;border-radius:10px;font-size:.95em;font-weight:600;cursor:pointer;transition:all .2s}
 .btn-prev{background:#f1f5f9;color:#475569}
 .btn-next{background:#2563eb;color:#fff}
 .btn-submit{background:#059669;color:#fff}
 .btn:active{transform:scale(.97)}
-.photo-upload-area{border:2px dashed #cbd5e1;border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;background:#f8fafc}
+.photo-upload-area{border:2px dashed #cbd5e1;border-radius:12px;padding:18px;text-align:center;cursor:pointer;transition:all .2s;background:#f8fafc}
 .photo-upload-area:active{border-color:#2563eb;background:#eff6ff}
-.photo-upload-area .icon{font-size:2em;margin-bottom:6px}
+.photo-upload-area .icon{font-size:1.8em;margin-bottom:6px}
 .photo-upload-area p{font-size:.85em;color:#64748b}
 .hidden{display:none}
 .photo-preview-container{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .photo-thumb-wrapper{position:relative;width:80px;height:80px}
 .photo-thumb{width:80px;height:80px;object-fit:cover;border-radius:8px;border:2px solid #e2e8f0}
 .photo-remove{position:absolute;top:-6px;right:-6px;width:22px;height:22px;background:#dc2626;color:#fff;border:none;border-radius:50%;font-size:.75em;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.expandable{max-height:0;overflow:hidden;transition:max-height .5s ease,opacity .3s ease;opacity:0}
-.expandable.open{max-height:5000px;opacity:1}
-#loadingOverlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center}
+#loadingOverlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;flex-direction:column}
 #loadingOverlay.active{display:flex}
 .spinner{width:50px;height:50px;border:4px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -72,321 +63,99 @@ select{background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 .modal button{padding:12px 32px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:1em;font-weight:600;cursor:pointer}
 .error-banner{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;padding:12px 16px;border-radius:8px;margin-bottom:12px;font-size:.9em;display:none}
 .error-banner.show{display:block}
+.needs-improvement-wrap{margin-top:10px;padding:10px;border:1px solid #fecaca;border-radius:8px;background:#fff1f2}
+.needs-improvement-wrap .q{margin-bottom:8px}
+.subtitle{font-size:.86em;color:#475569;margin-top:4px}
 </style>
 </head>
 <body>
 <div class="header">
-<div style="margin-bottom:8px">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120" style="width:200px;height:80px">
-<defs>
-<linearGradient id="laserGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-<stop offset="0%" style="stop-color:#ff0000;stop-opacity:1"/>
-<stop offset="50%" style="stop-color:#ff4444;stop-opacity:0.8"/>
-<stop offset="100%" style="stop-color:#ff0000;stop-opacity:0"/>
-</linearGradient>
-<linearGradient id="laserGlow" x1="0%" y1="0%" x2="100%" y2="0%">
-<stop offset="0%" style="stop-color:#ff6666;stop-opacity:0.5"/>
-<stop offset="100%" style="stop-color:#ff0000;stop-opacity:0"/>
-</linearGradient>
-<linearGradient id="sharkBody" x1="0%" y1="0%" x2="0%" y2="100%">
-<stop offset="0%" style="stop-color:#4a6fa5"/>
-<stop offset="50%" style="stop-color:#2d5a8e"/>
-<stop offset="100%" style="stop-color:#8ab4d6"/>
-</linearGradient>
-<filter id="glow"><feGaussianBlur stdDeviation="2" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-<filter id="laserFilter"><feGaussianBlur stdDeviation="1.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-</defs>
-<line x1="145" y1="52" x2="300" y2="30" stroke="url(#laserGrad)" stroke-width="3" filter="url(#laserFilter)"><animate attributeName="opacity" values="0.8;1;0.8" dur="0.3s" repeatCount="indefinite"/></line>
-<line x1="145" y1="52" x2="300" y2="35" stroke="url(#laserGlow)" stroke-width="6" opacity="0.4"><animate attributeName="opacity" values="0.3;0.5;0.3" dur="0.3s" repeatCount="indefinite"/></line>
-<line x1="145" y1="56" x2="300" y2="55" stroke="url(#laserGrad)" stroke-width="2.5" filter="url(#laserFilter)"><animate attributeName="opacity" values="0.7;1;0.7" dur="0.4s" repeatCount="indefinite"/></line>
-<line x1="145" y1="56" x2="300" y2="55" stroke="url(#laserGlow)" stroke-width="5" opacity="0.3"><animate attributeName="opacity" values="0.2;0.4;0.2" dur="0.4s" repeatCount="indefinite"/></line>
-<rect x="130" y="38" width="18" height="10" rx="2" fill="#555" stroke="#333" stroke-width="1"/>
-<rect x="144" y="40" width="8" height="6" rx="1" fill="#ff0000" opacity="0.9"><animate attributeName="opacity" values="0.7;1;0.7" dur="0.3s" repeatCount="indefinite"/></rect>
-<circle cx="148" cy="43" r="2" fill="#ff4444" filter="url(#glow)"><animate attributeName="r" values="1.5;2.5;1.5" dur="0.5s" repeatCount="indefinite"/></circle>
-<path d="M 30,60 Q 50,35 90,40 Q 120,38 140,45 Q 155,48 160,55 Q 165,62 160,68 Q 155,75 140,78 Q 120,82 90,80 Q 50,85 30,60 Z" fill="url(#sharkBody)" stroke="#1a4670" stroke-width="1.5"/>
-<path d="M 45,65 Q 60,78 90,78 Q 120,80 145,73 Q 155,68 155,65 Q 140,75 90,73 Q 60,72 45,65 Z" fill="#b8d8e8" opacity="0.7"/>
-<path d="M 85,40 L 75,15 L 100,38" fill="#2d5a8e" stroke="#1a4670" stroke-width="1"/>
-<path d="M 30,60 L 8,40 L 20,58 M 30,60 L 8,80 L 20,62" fill="#2d5a8e" stroke="#1a4670" stroke-width="1"/>
-<path d="M 100,72 L 85,92 L 110,78" fill="#3a6d9e" stroke="#1a4670" stroke-width="1"/>
-<circle cx="135" cy="52" r="6" fill="white" stroke="#1a4670" stroke-width="1"/>
-<circle cx="137" cy="51" r="3.5" fill="#111"/>
-<circle cx="138" cy="50" r="1.2" fill="white"/>
-<line x1="128" y1="47" x2="140" y2="44" stroke="#1a4670" stroke-width="2.5" stroke-linecap="round"/>
-<path d="M 145,62 Q 155,65 160,63" stroke="#1a4670" stroke-width="1.5" fill="none"/>
-<path d="M 147,62 L 148,66 L 150,62 L 152,66 L 154,62 L 156,66 L 158,63" fill="white" stroke="#ccc" stroke-width="0.5"/>
-<line x1="118" y1="55" x2="118" y2="65" stroke="#1a4670" stroke-width="1" opacity="0.5"/>
-<line x1="114" y1="56" x2="114" y2="66" stroke="#1a4670" stroke-width="1" opacity="0.5"/>
-<line x1="110" y1="57" x2="110" y2="67" stroke="#1a4670" stroke-width="1" opacity="0.5"/>
-<circle cx="25" cy="45" r="2" fill="none" stroke="#8ab4d6" stroke-width="0.8" opacity="0.6"><animate attributeName="cy" values="45;35;25" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;0.3;0" dur="2s" repeatCount="indefinite"/></circle>
-<circle cx="18" cy="55" r="1.5" fill="none" stroke="#8ab4d6" stroke-width="0.8" opacity="0.5"><animate attributeName="cy" values="55;45;35" dur="2.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.5;0.2;0" dur="2.5s" repeatCount="indefinite"/></circle>
-<circle cx="22" cy="70" r="1.8" fill="none" stroke="#8ab4d6" stroke-width="0.8" opacity="0.5"><animate attributeName="cy" values="70;58;48" dur="3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.5;0.2;0" dur="3s" repeatCount="indefinite"/></circle>
-</svg>
+  <h1>EESA Hazardous Waste Management</h1>
+  <p>Inspection Form — May 2026 Revision</p>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<h1>BELLA Lab QUEST Inspection</h1>
-<p>Safety &amp; Environment Walk-through</p>
-<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-</div>
+
 <div class="nav-dots" id="navDots"></div>
 <div id="appContainer"></div>
+
 <div class="btn-row">
-<button class="btn btn-prev" id="btnPrev" onclick="navigate(-1)">← Back</button>
-<button class="btn btn-next" id="btnNext" onclick="navigate(1)">Next →</button>
+  <button class="btn btn-prev" id="btnPrev" onclick="navigate(-1)">← Back</button>
+  <button class="btn btn-next" id="btnNext" onclick="navigate(1)">Next →</button>
 </div>
-<div id="loadingOverlay"><div class="spinner"></div></div>
+
+<div id="loadingOverlay">
+  <div class="spinner"></div>
+  <p id="loadingText" style="color:#fff;margin-top:16px;font-size:.9em;text-align:center;max-width:280px;"></p>
+</div>
+
 <div id="modalOverlay">
-<div class="modal">
-<div class="checkmark">✅</div>
-<h2>Submitted!</h2>
-<p>Your QUEST inspection has been recorded successfully.</p>
-<button onclick="location.reload()">New Inspection</button>
+  <div class="modal">
+    <div class="checkmark">✅</div>
+    <h2>Submitted!</h2>
+    <p>Your inspection has been recorded successfully.</p>
+    <button onclick="location.reload()">New Inspection</button>
+  </div>
 </div>
-</div>
-  <script>
-// ============================================================
-// CONFIGURATION - EDIT THIS SECTION TO ADD/REMOVE/MODIFY
-// ============================================================
 
-// ---- ROOM LIST ----
-// To add a room: add a new line like { value: "71-XXXX", label: "71-XXXX (Description)" }
-// To remove a room: delete the line
-const ROOMS = [
-  { value: "71-0131", label: "71-0131 (PW CR & Gown)" },
-  { value: "71-0126", label: "71-0126 (Pre Gown — consolidate with PW CR)" },
-  { value: "71-0126A", label: "71-0126A (Gown — consolidate with PW CR)" },
-  { value: "71-0126B", label: "71-0126B (PW-AA)" },
-  { value: "71-0146", label: "71-0146 (PW-LaserBay)" },
-  { value: "71-0146A", label: "71-0146A (A-Cave)" },
-  { value: "71-0146B", label: "71-0146B (B-Cave)" },
-  { value: "71-0146C", label: "71-0146C (PW-TEA)" },
-  { value: "71-0146L", label: "71-0146L (L-Cave)" },
-  { value: "71-0146W", label: "71-0146W (A-Cave Gown — consolidate with A-Cave)" },
-  { value: "71-0148", label: "71-0148 (HTU Laser)" },
-  { value: "71-0148B", label: "71-0148B (HTU Supply — consolidate with HTU Laser)" }
-];
-
-// ---- QUESTION TYPES ----
-// "yes_no"      → Yes / No
-// "yes_no_na"   → N/A / Yes / No
-// "text"        → text input
-// "textarea"    → multiline text
-// "date"        → date picker
-// "select"      → dropdown (provide "options" array)
-// "radio"       → custom radio (provide "options" array)
-// "matrix"      → table of sub-questions (provide "rows" array, uses N/A / Yes / No)
-// "photo"       → photo upload
-// "triage"      → Yes / N/A toggle that shows/hides a "children" array of questions
-
-// ---- SECTIONS ----
-// To add a section: copy a section block and modify
-// To remove a section: delete the block
-// To reword: change the "text" string
-// To make required: add required: true
+<script>
 const SECTIONS = [
   {
-    id: "general_info",
-    title: "General Information",
+    id: "inspection_info",
+    title: "Inspection Information",
     questions: [
-      { id: "quest_date", text: "Date of QUEST", type: "date", required: true },
-      { id: "inspector_name", text: "Inspector Name", type: "text", placeholder: "Enter your name", required: true },
-      { id: "room_number", text: "Room / Lab Number", type: "select", required: true,
-        options: ROOMS.map(r => ({ value: r.value, label: r.label })).concat([{ value: "other", label: "Other (specify below)" }])
-      },
-      { id: "room_number_other", text: "If Other, specify room number", type: "text", placeholder: "Enter room number" }
+      { id: "building", text: "Building", type: "text", required: true, placeholder: "Your answer" },
+      { id: "room", text: "Room", type: "text", required: true, placeholder: "Your answer" },
+      { id: "date_inspected", text: "Date Inspected", type: "date", required: true },
+      { id: "inspected_by", text: "Inspected By", type: "text", required: true, placeholder: "Your answer" },
+      { id: "pi_name", text: "PI's name", type: "text", required: true, placeholder: "Your answer" },
+      { id: "division", text: "Division", type: "radio", required: true, options: [
+        { value: "CESD", label: "Climate Ecosystem Sciences (CESD)" },
+        { value: "EGD", label: "Energy Geosciences (EGD)" }
+      ]}
     ]
   },
   {
-    id: "general_safety",
-    title: "General Lab Safety",
+    id: "checklist",
+    title: "Inspection Checklist Items (SAA, Rad, Biohazard and sharps)",
     questions: [
-      { id: "immediate_hazards", text: "Are there any immediate hazards?", type: "yes_no", required: true },
-      { id: "immediate_hazards_desc", text: "If yes, describe hazard and corrective action", type: "textarea", placeholder: "Describe hazard..." },
-      { id: "trip_fall", text: "Is there a trip and/or fall hazard?", type: "yes_no" },
-      { id: "trip_fall_desc", text: "If yes, describe hazard", type: "textarea", placeholder: "Describe trip/fall hazard..." },
-      { id: "loud_noise", text: "Are loud noise source controls in place?", type: "yes_no_na" },
-      { id: "sharp_tools", text: "Are sharp tools and broken glass disposed of properly?", type: "yes_no_na" },
-      { id: "outdated_signs", text: "Are there any outdated/incorrect/missing signs?", type: "yes_no" },
-      { id: "water_leak_equip", text: "Any water leaks or equipment exhibiting corrosion?", type: "yes_no" },
-      { id: "gas_cylinders", text: "Are gas cylinders properly restrained and capped?", type: "yes_no_na" },
-      { id: "machine_guarding", text: "Machine Guarding", type: "matrix", rows: [
-        { id: "mg_guards", text: "Are machine guards present?" },
-        { id: "mg_work", text: "Do guards allow work without impedance?" },
-        { id: "mg_bypass", text: "Is bypass of guard or interlock required?" }
-      ]},
-      { id: "cryo_systems", text: "Cryogenic Liquid Systems", type: "matrix", rows: [
-        { id: "cryo_cond", text: "Good condition (plumbing/valving)?" },
-        { id: "cryo_nozzle", text: "Safety nozzles present?" },
-        { id: "cryo_leaks", text: "Any visible leaks?" },
-        { id: "cryo_ppe", text: "PPE available?" },
-        { id: "cryo_sign", text: "Signage in place?" }
-      ]},
-      { id: "ventilation", text: "Ventilation Systems", type: "matrix", rows: [
-        { id: "vent_unclut", text: "Area uncluttered, sash down when not in use?" },
-        { id: "vent_sticker", text: "Current inspection sticker present?" }
-      ]},
-      { id: "gen_safety_comments", text: "Comments and/or recommendations", type: "textarea", placeholder: "Enter comments..." },
-      { id: "photos_gen", text: "Upload Pictures", type: "photo" }
+      qRadio("q1_saa_posted", "Is the SAA posted with the LBNL approved SAA label (yellow sign) that includes the name and contact information of the person responsible for this SAA?"),
+      qRadio("q2_inprogress_labeled", "Are all in-progress waste containers properly labeled with the hazardous material names, owner’s name, and accumulation start date?"),
+      qRadio("q3_ready_requisition", "Are all waste containers ready for requisition properly labeled with a fully completed WMS label or Yellow RAD label for radioactive waste?"),
+      qRadio("q4_waste_log", "Is an up-to-date waste log maintained, including chemical names and concentrations?"),
+      qRadio("q5_rfid_removed", "Have all previous chemical RFID tags been removed from containers before they are reused for waste collection?"),
+      qRadio("q6_radioactive_labeled", "Is all radioactive waste properly labeled?"),
+      qRadio("q7_liquid_secondary", "Are liquids wastes stored in secondary containment?"),
+      qRadio("q8_incompatible_separated", "Are incompatible wastes physically separated with different secondary containments?"),
+      qRadio("q9_flammable_gt_quart", "Are all flammable wastes greater than 1 quart in volume stored in an approved flammable waste container?"),
+      qRadio("q10_dated_180", "Are all waste containers dated within 6 months (180 days) of the 'SAA Accumulation Start Date'?"),
+      qRadio("q11_closed_not_in_use", "Are all waste containers closed when not in use (includes ensuring ventilation attachment parts are detached from flammable waste containers when not in use)?"),
+      qRadio("q12_acutely_toxic_lt1qt", "Are the acutely toxic wastes (if any) in your SAA less than 1 quart in volume?"),
+      qRadio("q13_total_lt55gal", "Are all wastes in your SAA less than 55 gallons in volume total?"),
+      qRadio("q14_sharps_unregulated", "Sharps containers should be labeled 'Unregulated sharps' and not be overfilled."),
+      qRadio("q15_biowaste_not_overfilled", "Bio-waste containers should not be overfilled (the container should be emptied when full and the lid should be closed at all times)."),
+      qRadio("q16_biohazard_labels", "Biohazard labels should be clearly posted on waste container.")
     ]
   },
   {
-    id: "ergonomics",
-    title: "Lab Ergonomics",
+    id: "findings",
+    title: "Findings & Corrective Actions",
     questions: [
-      { id: "ergo_support", text: "Are any ergonomic supports needed?", type: "yes_no" },
-      { id: "ergo_support_desc", text: "If yes, describe", type: "textarea", placeholder: "Describe ergonomic support needed..." },
-      { id: "ergo_posture", text: "Does the workstation support a good posture?", type: "yes_no" },
-      { id: "ergo_adjust", text: "Are work surfaces, tables, and chairs adjustable?", type: "yes_no_na" },
-      { id: "ergo_lighting", text: "Is there insufficient lighting?", type: "yes_no" },
-      { id: "ergo_comments", text: "Comments and/or recommendations", type: "textarea", placeholder: "Enter comments..." },
-      { id: "photos_ergo", text: "Upload Pictures", type: "photo" }
-    ]
-  },
-  {
-    id: "emergency",
-    title: "Emergency Preparedness",
-    questions: [
-      { id: "emergency_exit", text: "Are emergency exits clear and unobstructed? Exit signs illuminated?", type: "yes_no" },
-      { id: "earthquake_risk", text: "Items that could fall, tip, or break during earthquake?", type: "yes_no" },
-      { id: "fire_ext", text: "Are fire extinguishers accessible and charged?", type: "yes_no_na" },
-      { id: "emergency_comments", text: "Comments and/or recommendations", type: "textarea", placeholder: "Enter comments..." },
-      { id: "photos_emergency", text: "Upload Pictures", type: "photo" }
-    ]
-  },
-  {
-    id: "electrical",
-    title: "Electrical Safety",
-    questions: [
-      { id: "elec_panels", text: "Electrical Panels", type: "matrix", rows: [
-        { id: "elec_access", text: "Access unobstructed (36\" clearance)?" },
-        { id: "elec_breakers", text: "Breakers identified, panel good condition?" }
-      ]},
-      { id: "elec_outlets", text: "Outlets and Receptacles", type: "matrix", rows: [
-        { id: "outlet_cond", text: "Outlets/receptacles in good condition?" },
-        { id: "outlet_gfci", text: "GFCI present/verified where required?" }
-      ]},
-      { id: "elec_heat", text: "Are heat tapes properly connected?", type: "yes_no_na" },
-      { id: "ext_cords", text: "Extension Cords", type: "matrix", rows: [
-        { id: "ext_temp", text: "Used as temporary wiring only?" },
-        { id: "ext_cond", text: "Good condition, grounded (3-prong)?" },
-        { id: "ext_breaker", text: "Power strips have circuit breaker?" },
-        { id: "ext_daisy", text: "No daisy-chaining?" }
-      ]},
-      { id: "elec_comments", text: "Comments and/or recommendations", type: "textarea", placeholder: "Enter comments..." },
-      { id: "photos_elec", text: "Upload Pictures", type: "photo" }
-    ]
-  },
-  {
-    id: "soldering",
-    title: "Soldering",
-    questions: [
-      { id: "triage_solder", text: "Is there soldering performed within your area?", type: "triage", required: true,
-        children: [
-          { id: "solder_wpc", text: "Are soldering activities described by a WPC for this area?", type: "yes_no" },
-          { id: "solder_vent", text: "Identify means of ventilation for soldering", type: "radio", options: [
-            { value: "Open Air - No Mechanical Ventilation", label: "Open Air - No Mechanical Ventilation" },
-            { value: "Mechanical Ventilation - Fan", label: "Mechanical Ventilation - Fan" },
-            { value: "Mechanical Ventilation - Fume Extractor", label: "Mechanical Ventilation - Fume Extractor" },
-            { value: "N/A", label: "N/A - No soldering station" }
-          ]},
-          { id: "solder_permit", text: "Is there a hot work permit for soldering?", type: "radio", options: [
-            { value: "Yes", label: "Yes" },
-            { value: "No", label: "No - Soldering occurs but no permit" },
-            { value: "N/A", label: "N/A - No soldering station" }
-          ]}
-        ]
-      },
-      { id: "solder_comments", text: "Comments and/or recommendations", type: "textarea", placeholder: "Enter comments..." },
-      { id: "photos_solder", text: "Upload Pictures", type: "photo" }
-    ]
-  },
-  {
-    id: "chemical",
-    title: "Chemical Safety",
-    questions: [
-      { id: "triage_chem", text: "Are chemicals present in the area?", type: "triage", required: true,
-        children: [
-          { id: "chem_label", text: "Are all chemical containers properly labeled?", type: "yes_no" },
-          { id: "chem_sds", text: "Are SDS sheets accessible?", type: "yes_no" },
-          { id: "chem_storage", text: "Are chemicals stored properly (compatibility, containment)?", type: "yes_no" },
-          { id: "chem_inventory", text: "Is a chemical inventory maintained?", type: "yes_no" },
-          { id: "chem_expired", text: "Are there expired chemicals that need disposal?", type: "yes_no" },
-          { id: "chem_ppe", text: "Is appropriate PPE available for chemical handling?", type: "yes_no" },
-          { id: "chem_spill", text: "Are spill kits available and stocked?", type: "yes_no" },
-          { id: "chem_waste", text: "Is chemical waste properly labeled and stored?", type: "yes_no" }
-        ]
-      },
-      { id: "chem_comments", text: "Comments and/or recommendations", type: "textarea", placeholder: "Enter comments..." },
-      { id: "photos_chem", text: "Upload Pictures", type: "photo" }
-    ]
-  },
-  {
-    id: "laser",
-    title: "Laser Safety",
-    questions: [
-      { id: "triage_laser", text: "Are lasers present in the area?", type: "triage", required: true,
-        children: [
-          { id: "laser_matrix", text: "Laser Safety", type: "matrix", rows: [
-            { id: "laser_signs", text: "Are laser warning signs posted?" },
-            { id: "laser_goggles", text: "Are laser safety goggles available?" },
-            { id: "laser_beam", text: "Are beam paths enclosed where possible?" },
-            { id: "laser_sop", text: "Is a laser SOP available?" },
-            { id: "laser_interlock", text: "Are interlocks functional?" }
-          ]}
-        ]
-      },
-      { id: "laser_comments", text: "Comments and/or recommendations", type: "textarea", placeholder: "Enter comments..." },
-      { id: "photos_laser", text: "Upload Pictures", type: "photo" }
-    ]
-  },
-  {
-    id: "radiation",
-    title: "Radiation Safety",
-    questions: [
-      { id: "triage_rad", text: "Are radiation sources present?", type: "triage", required: true,
-        children: [
-          { id: "rad_matrix", text: "Radiation Safety", type: "matrix", rows: [
-            { id: "rad_signs", text: "Are radiation warning signs posted?" },
-            { id: "rad_dosimeter", text: "Are dosimeters available/worn?" },
-            { id: "rad_shield", text: "Is shielding adequate?" },
-            { id: "rad_survey", text: "Are survey instruments available and calibrated?" }
-          ]}
-        ]
-      },
-      { id: "rad_comments", text: "Comments and/or recommendations", type: "textarea", placeholder: "Enter comments..." },
-      { id: "photos_rad", text: "Upload Pictures", type: "photo" }
-    ]
-  },
-  {
-    id: "ppe",
-    title: "Personal Protective Equipment",
-    questions: [
-      { id: "ppe_wearing", text: "Are workers wearing appropriate PPE?", type: "yes_no" },
-      { id: "ppe_condition", text: "Is PPE in good condition?", type: "yes_no" },
-      { id: "ppe_visitors", text: "Is PPE readily available for visitors/guests?", type: "yes_no" },
-      { id: "ppe_glasses", text: "Are safety glasses/goggles available?", type: "yes_no_na" },
-      { id: "ppe_hearing", text: "Are hearing protectors available?", type: "yes_no_na" },
-      { id: "ppe_comments", text: "Comments and/or recommendations", type: "textarea", placeholder: "Enter comments..." },
-      { id: "photos_ppe", text: "Upload Pictures", type: "photo" }
-    ]
-  },
-  {
-    id: "review",
-    title: "Review & Submit",
-    questions: [
-      { id: "overall", text: "Overall Assessment", type: "radio", required: true, options: [
-        { value: "Satisfactory - No issues found", label: "✅ Satisfactory - No issues found" },
-        { value: "Minor Issues - Corrections needed", label: "⚠️ Minor Issues - Corrections needed" },
-        { value: "Major Issues - Immediate action required", label: "🚨 Major Issues - Immediate action required" }
-      ]},
-      { id: "final_notes", text: "Additional Notes", type: "textarea", placeholder: "Any additional observations or recommendations..." }
+      { id: "finding_summary", text: "Finding (If \"Needs Improvement\" was selected)", type: "textarea", placeholder: "Your answer" },
+      { id: "date_corrected", text: "Date Corrected", type: "date" }
     ]
   }
 ];
 
-// ============================================================
-// END CONFIGURATION
-// ============================================================// ============================================================
-// APP ENGINE - DO NOT EDIT BELOW UNLESS YOU KNOW WHAT YOU'RE DOING
-// ============================================================
+function qRadio(id, text){
+  return {
+    id, text, type:"radio", required:true,
+    options:[
+      { value:"Satisfactory", label:"Satisfactory" },
+      { value:"Not Applicable", label:"Not Applicable" },
+      { value:"Needs Improvement", label:"Needs Improvement" }
+    ]
+  };
+}
 
 let cur = 0;
 let visited = new Set([0]);
@@ -398,8 +167,7 @@ function init() {
   buildSections();
   updateButtons();
   updateProgress();
-  // Set today's date
-  let dateEl = document.getElementById('q_quest_date');
+  let dateEl = document.getElementById('q_date_inspected');
   if (dateEl) dateEl.valueAsDate = new Date();
 }
 
@@ -422,11 +190,12 @@ function buildSections() {
     let div = document.createElement('div');
     div.className = 'section' + (idx === 0 ? ' active' : '');
     div.id = 'section-' + idx;
+
     let html = '<div class="error-banner" id="error-' + idx + '">⚠️ Please complete the required fields highlighted below.</div>';
     html += '<h2 class="section-title">' + sec.title + '</h2>';
-    sec.questions.forEach(q => {
-      html += renderQuestion(q);
-    });
+
+    sec.questions.forEach(q => html += renderQuestion(q));
+
     div.innerHTML = html;
     container.appendChild(div);
   });
@@ -436,108 +205,68 @@ function renderQuestion(q) {
   let html = '';
   switch (q.type) {
     case 'date':
-      html += '<div class="card" data-qid="' + q.id + '"' + (q.required ? ' data-required="true"' : '') + '>';
-      html += '<label class="q' + (q.required ? ' required' : '') + '">' + q.text + '</label>';
-      html += '<input type="date" id="q_' + q.id + '">';
-      html += '</div>';
+      html += `<div class="card" data-qid="${q.id}" ${q.required ? 'data-required="true"' : ''}>
+        <label class="q ${q.required ? 'required':''}">${q.text}</label>
+        <input type="date" id="q_${q.id}">
+      </div>`;
       break;
+
     case 'text':
-      html += '<div class="card" data-qid="' + q.id + '"' + (q.required ? ' data-required="true"' : '') + '>';
-      html += '<label class="q' + (q.required ? ' required' : '') + '">' + q.text + '</label>';
-      html += '<input type="text" id="q_' + q.id + '" placeholder="' + (q.placeholder || '') + '">';
-      html += '</div>';
+      html += `<div class="card" data-qid="${q.id}" ${q.required ? 'data-required="true"' : ''}>
+        <label class="q ${q.required ? 'required':''}">${q.text}</label>
+        <input type="text" id="q_${q.id}" placeholder="${q.placeholder || ''}">
+      </div>`;
       break;
+
     case 'textarea':
-      html += '<div class="card" data-qid="' + q.id + '">';
-      html += '<label class="q">' + q.text + '</label>';
-      html += '<textarea id="q_' + q.id + '" placeholder="' + (q.placeholder || '') + '"></textarea>';
-      html += '</div>';
+      html += `<div class="card" data-qid="${q.id}" ${q.required ? 'data-required="true"' : ''}>
+        <label class="q ${q.required ? 'required':''}">${q.text}</label>
+        <textarea id="q_${q.id}" placeholder="${q.placeholder || ''}"></textarea>
+      </div>`;
       break;
-    case 'select':
-      html += '<div class="card" data-qid="' + q.id + '"' + (q.required ? ' data-required="true"' : '') + '>';
-      html += '<label class="q' + (q.required ? ' required' : '') + '">' + q.text + '</label>';
-      html += '<select id="q_' + q.id + '">';
-      html += '<option value="">-- Select --</option>';
-      q.options.forEach(o => {
-        html += '<option value="' + o.value + '">' + o.label + '</option>';
-      });
-      html += '</select>';
-      html += '</div>';
-      break;
-    case 'yes_no':
-      html += '<div class="card" data-qid="' + q.id + '"' + (q.required ? ' data-required="true" data-type="radio"' : '') + '>';
-      html += '<label class="q' + (q.required ? ' required' : '') + '">' + q.text + '</label>';
-      html += '<div class="radio-group">';
-      html += '<label><input type="radio" name="q_' + q.id + '" value="Yes"><span>Yes</span></label>';
-      html += '<label><input type="radio" name="q_' + q.id + '" value="No"><span>No</span></label>';
-      html += '</div></div>';
-      break;
-    case 'yes_no_na':
-      html += '<div class="card" data-qid="' + q.id + '">';
-      html += '<label class="q">' + q.text + '</label>';
-      html += '<div class="radio-group">';
-      html += '<label><input type="radio" name="q_' + q.id + '" value="N/A"><span>N/A</span></label>';
-      html += '<label><input type="radio" name="q_' + q.id + '" value="Yes"><span>Yes</span></label>';
-      html += '<label><input type="radio" name="q_' + q.id + '" value="No"><span>No</span></label>';
-      html += '</div></div>';
-      break;
+
     case 'radio':
-      html += '<div class="card" data-qid="' + q.id + '"' + (q.required ? ' data-required="true" data-type="radio"' : '') + '>';
-      html += '<label class="q' + (q.required ? ' required' : '') + '">' + q.text + '</label>';
-      html += '<div class="radio-group" style="flex-direction:column;">';
+      html += `<div class="card" data-qid="${q.id}" ${q.required ? 'data-required="true" data-type="radio"' : ''}>
+        <label class="q ${q.required ? 'required':''}">${q.text}</label>
+        <div class="radio-group">`;
+
       q.options.forEach(o => {
-        html += '<label><input type="radio" name="q_' + q.id + '" value="' + o.value + '"><span>' + o.label + '</span></label>';
+        const niToggle = (o.value === 'Needs Improvement')
+          ? `onchange="toggleNeedsImprovement('${q.id}', true)"`
+          : `onchange="toggleNeedsImprovement('${q.id}', false)"`;
+
+        html += `<label>
+          <input type="radio" name="q_${q.id}" value="${o.value}" ${niToggle}>
+          <span>${o.label}</span>
+        </label>`;
       });
-      html += '</div></div>';
-      break;
-    case 'matrix':
-      html += '<div class="card" data-qid="' + q.id + '">';
-      html += '<label class="q">' + q.text + '</label>';
-      html += '<div style="overflow-x:auto;"><table class="matrix-table">';
-      html += '<tr><th></th><th>N/A</th><th>Yes</th><th>No</th></tr>';
-      q.rows.forEach(r => {
-        html += '<tr><td>' + r.text + '</td>';
-        ['N/A', 'Yes', 'No'].forEach(v => {
-          html += '<td><input type="radio" name="q_' + r.id + '" value="' + v + '"></td>';
-        });
-        html += '</tr>';
-      });
-      html += '</table></div></div>';
-      break;
-    case 'triage':
-      html += '<div class="card triage-card" data-qid="' + q.id + '"' + (q.required ? ' data-required="true" data-type="radio"' : '') + '>';
-      html += '<label class="q' + (q.required ? ' required' : '') + '">' + q.text + '</label>';
-      html += '<div class="radio-group">';
-      html += '<label><input type="radio" name="q_' + q.id + '" value="Yes" onchange="toggleExpand(\'expand_' + q.id + '\',true)"><span>Yes</span></label>';
-      html += '<label><input type="radio" name="q_' + q.id + '" value="N/A" onchange="toggleExpand(\'expand_' + q.id + '\',false)"><span>N/A</span></label>';
-      html += '</div></div>';
-      html += '<div class="expandable" id="expand_' + q.id + '">';
-      if (q.children) {
-        q.children.forEach(child => {
-          html += renderQuestion(child);
-        });
-      }
-      html += '</div>';
-      break;
-    case 'photo':
-      let pid = 'preview_' + q.id;
-      html += '<div class="card" data-qid="' + q.id + '">';
-      html += '<label class="q">' + q.text + '</label>';
-      html += '<div class="photo-upload-area" onclick="document.getElementById(\'q_' + q.id + '\').click()">';
-      html += '<div class="icon">📷</div><p>Tap to take or upload photos</p></div>';
-      html += '<input type="file" id="q_' + q.id + '" accept="image/*" capture="environment" multiple class="hidden" onchange="handlePhotos(this,\'' + pid + '\')">';
-      html += '<div class="photo-preview-container" id="' + pid + '"></div>';
-      html += '</div>';
+
+      html += `</div>`;
+
+      // Auto-show details + photos for Needs Improvement
+      const pid = `preview_${q.id}_ni_photo`;
+      html += `<div class="needs-improvement-wrap hidden" id="ni_wrap_${q.id}">
+        <label class="q required">Please provide more information</label>
+        <textarea id="q_${q.id}_ni_text" placeholder="Describe what needs improvement..."></textarea>
+        <label class="q" style="margin-top:10px;">Add photo(s)</label>
+        <div class="photo-upload-area" onclick="document.getElementById('q_${q.id}_ni_photo').click()">
+          <div class="icon">📷</div><p>Tap to take or upload photos</p>
+        </div>
+        <input type="file" id="q_${q.id}_ni_photo" accept="image/*" capture="environment" multiple class="hidden" onchange="handlePhotos(this,'${pid}')">
+        <div class="photo-preview-container" id="${pid}"></div>
+      </div>`;
+
+      html += `</div>`;
       break;
   }
   return html;
 }
 
-function toggleExpand(id, show) {
-  let el = document.getElementById(id);
-  if (!el) return;
-  if (show) el.classList.add('open');
-  else el.classList.remove('open');
+function toggleNeedsImprovement(qid, show) {
+  const wrap = document.getElementById('ni_wrap_' + qid);
+  if (!wrap) return;
+  if (show) wrap.classList.remove('hidden');
+  else wrap.classList.add('hidden');
 }
 
 function goTo(n) {
@@ -580,8 +309,7 @@ function updateButtons() {
 }
 
 function updateProgress() {
-  let pct = ((cur + 1) / TOTAL) * 100;
-  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressFill').style.width = (((cur + 1) / TOTAL) * 100) + '%';
 }
 
 function handlePhotos(input, previewId) {
@@ -624,7 +352,6 @@ function getVal(id) {
 }
 
 function validateRequired() {
-  // Clear all errors first
   document.querySelectorAll('.card.error').forEach(c => c.classList.remove('error'));
   document.querySelectorAll('.error-banner.show').forEach(b => b.classList.remove('show'));
 
@@ -633,6 +360,7 @@ function validateRequired() {
 
   SECTIONS.forEach((sec, secIdx) => {
     let sectionHasError = false;
+
     sec.questions.forEach(q => {
       let missing = checkMissing(q);
       if (missing) {
@@ -644,22 +372,8 @@ function validateRequired() {
           firstErrorCard = card;
         }
       }
-      // Check triage children too
-      if (q.type === 'triage' && q.children && getRadio('q_' + q.id) === 'Yes') {
-        q.children.forEach(child => {
-          let cm = checkMissing(child);
-          if (cm) {
-            let card = document.querySelector('[data-qid="' + child.id + '"]');
-            if (card) card.classList.add('error');
-            sectionHasError = true;
-            if (firstErrorSection === -1) {
-              firstErrorSection = secIdx;
-              firstErrorCard = card;
-            }
-          }
-        });
-      }
     });
+
     if (sectionHasError) {
       let banner = document.getElementById('error-' + secIdx);
       if (banner) banner.classList.add('show');
@@ -678,35 +392,29 @@ function validateRequired() {
 
 function checkMissing(q) {
   if (!q.required) return false;
-  if (q.type === 'text' || q.type === 'date') {
+
+  if (q.type === 'text' || q.type === 'date' || q.type === 'textarea') {
     return !getVal('q_' + q.id);
   }
-  if (q.type === 'select') {
-    let v = getVal('q_' + q.id);
-    if (!v) return true;
-    if (v === 'other' && !getVal('q_' + q.id + '_other')) return true;
+
+  if (q.type === 'radio') {
+    const selected = getRadio('q_' + q.id);
+    if (!selected) return true;
+
+    if (selected === 'Needs Improvement') {
+      const detail = getVal('q_' + q.id + '_ni_text').trim();
+      if (!detail) return true; // required detail text when NI
+    }
     return false;
   }
-  if (q.type === 'yes_no' || q.type === 'yes_no_na' || q.type === 'radio' || q.type === 'triage') {
-    return !getRadio('q_' + q.id);
-  }
+
   return false;
 }
 
 function collectData() {
-  let data = { timestamp: new Date().toISOString() };
-  SECTIONS.forEach(sec => {
-    sec.questions.forEach(q => {
-      collectQuestionData(q, data);
-    });
-  });
-  // Handle room_number "other"
-  if (data.room_number === 'other') {
-    data.room_number = data.room_number_other || 'Other';
-  }
-  // Photo count
-  let photos = collectAllPhotos();
-  data.photo_count = photos.length;
+  const data = { timestamp: new Date().toISOString() };
+  SECTIONS.forEach(sec => sec.questions.forEach(q => collectQuestionData(q, data)));
+  data.photo_count = collectAllPhotos().length;
   return data;
 }
 
@@ -717,29 +425,10 @@ function collectQuestionData(q, data) {
     case 'textarea':
       data[q.id] = getVal('q_' + q.id);
       break;
-    case 'select':
-      data[q.id] = getVal('q_' + q.id);
-      break;
-    case 'yes_no':
-    case 'yes_no_na':
     case 'radio':
-    case 'triage':
       data[q.id] = getRadio('q_' + q.id);
+      data[q.id + '_ni_text'] = (data[q.id] === 'Needs Improvement') ? getVal('q_' + q.id + '_ni_text') : '';
       break;
-    case 'matrix':
-      q.rows.forEach(r => {
-        data[r.id] = getRadio('q_' + r.id);
-      });
-      break;
-    case 'photo':
-      // handled separately
-      break;
-  }
-  // Triage children
-  if (q.type === 'triage' && q.children) {
-    q.children.forEach(child => {
-      collectQuestionData(child, data);
-    });
   }
 }
 
@@ -747,7 +436,7 @@ function collectAllPhotos() {
   let all = [];
   Object.keys(photoStore).forEach(key => {
     photoStore[key].forEach(p => {
-      all.push({ section: key.replace('preview_photos_', ''), name: p.name, data: p.data });
+      all.push({ section: key, name: p.name, data: p.data });
     });
   });
   return all;
@@ -757,6 +446,7 @@ function submitForm() {
   if (!validateRequired()) return;
 
   document.getElementById('loadingOverlay').classList.add('active');
+  document.getElementById('loadingText').textContent = 'Submitting inspection...';
 
   var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMcghHzgWCP8pZACtxotqQbc4fJdfnT1LEtrNq4ZZzwtbf1rgWX5uhEdJRnMajmkaGkg/exec';
   var FOLDER_ID = '11OZE6xSbCw4UpyRIg6bCNXRE9r79tCPG';
@@ -768,32 +458,20 @@ function submitForm() {
 
   fetch(sheetURL, { mode: 'no-cors' })
     .then(function() {
-      console.log('Form data sent to sheet');
-
-      if (photos.length === 0) {
-        showSuccess();
-        return;
-      }
+      if (photos.length === 0) { showSuccess(); return; }
 
       var photoIndex = 0;
-      showLoadingMessage('Uploading photo 1 of ' + photos.length + '...');
-
       function uploadNext() {
-        if (photoIndex >= photos.length) {
-          showSuccess();
-          return;
-        }
-
-        showLoadingMessage('Uploading photo ' + (photoIndex + 1) + ' of ' + photos.length + '...');
-
+        if (photoIndex >= photos.length) { showSuccess(); return; }
+        document.getElementById('loadingText').textContent = 'Uploading photo ' + (photoIndex + 1) + ' of ' + photos.length + '...';
         var photo = photos[photoIndex];
 
         compressImage(photo.data, 1200, 0.7).then(function(compressedData) {
           var payload = {
             action: 'uploadPhotos',
             folderId: FOLDER_ID,
-            inspectorName: data.inspector_name || 'Unknown',
-            date: data.quest_date || new Date().toISOString().split('T')[0],
+            inspectorName: data.inspected_by || 'Unknown',
+            date: data.date_inspected || new Date().toISOString().split('T')[0],
             photos: [{
               section: photo.section,
               name: photo.name,
@@ -807,23 +485,14 @@ function submitForm() {
             headers: { 'Content-Type': 'text/plain' },
             body: JSON.stringify(payload)
           })
-          .then(function() {
-            console.log('Photo ' + (photoIndex + 1) + ' sent');
-            photoIndex++;
-            uploadNext();
-          })
-          .catch(function(error) {
-            console.error('Photo ' + (photoIndex + 1) + ' failed:', error);
-            photoIndex++;
-            uploadNext();
-          });
+          .then(function() { photoIndex++; uploadNext(); })
+          .catch(function() { photoIndex++; uploadNext(); });
         });
       }
 
       uploadNext();
     })
-    .catch(function(error) {
-      console.error('Submit error:', error);
+    .catch(function() {
       document.getElementById('loadingOverlay').classList.remove('active');
       alert('Error submitting form. Please try again.');
     });
@@ -834,35 +503,18 @@ function showSuccess() {
   document.getElementById('modalOverlay').classList.add('active');
 }
 
-function showLoadingMessage(text) {
-  if (!document.getElementById('loadingText')) {
-    var p = document.createElement('p');
-    p.id = 'loadingText';
-    p.style.cssText = 'color:#fff;margin-top:16px;font-size:0.9em;text-align:center;max-width:280px;';
-    document.querySelector('#loadingOverlay .spinner').parentNode.appendChild(p);
-  }
-  document.getElementById('loadingText').textContent = text;
-}
-
 function compressImage(dataUrl, maxWidth, quality) {
   return new Promise(function(resolve) {
     var img = new Image();
     img.onload = function() {
       var canvas = document.createElement('canvas');
-      var w = img.width;
-      var h = img.height;
-      if (w > maxWidth) {
-        h = Math.round(h * maxWidth / w);
-        w = maxWidth;
-      }
-      canvas.width = w;
-      canvas.height = h;
+      var w = img.width, h = img.height;
+      if (w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
+      canvas.width = w; canvas.height = h;
       canvas.getContext('2d').drawImage(img, 0, 0, w, h);
       resolve(canvas.toDataURL('image/jpeg', quality));
     };
-    img.onerror = function() {
-      resolve(dataUrl);
-    };
+    img.onerror = function() { resolve(dataUrl); };
     img.src = dataUrl;
   });
 }
