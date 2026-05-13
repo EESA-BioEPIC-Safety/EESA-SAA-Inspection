@@ -3,7 +3,7 @@ name: Sync checklist from Google Sheets
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"  # hourly
+    - cron: "0 * * * *"
 
 jobs:
   sync:
@@ -13,9 +13,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Validate secret exists
+        run: |
+          if [ -z "${{ secrets.SHEET_JSON_URL }}" ]; then
+            echo "SHEET_JSON_URL is empty/missing"
+            exit 1
+          fi
+          echo "Secret exists"
+
       - name: Fetch checklist JSON
         run: |
-          curl -L "${{ secrets.SHEET_JSON_URL }}" -o checklist.json
+          curl -fL "${{ secrets.SHEET_JSON_URL }}" -o checklist.json
+          echo "Downloaded bytes:"
+          wc -c checklist.json
+          echo "First 300 chars:"
+          head -c 300 checklist.json; echo
           jq . checklist.json > /dev/null
 
       - name: Commit if changed
