@@ -1,0 +1,27 @@
+name: Sync checklist from Google Sheets
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"  # hourly
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch checklist JSON
+        run: |
+          curl -L "${{ secrets.SHEET_JSON_URL }}" -o checklist.json
+          jq . checklist.json > /dev/null
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add checklist.json
+          git diff --cached --quiet || git commit -m "Sync checklist from Google Sheets"
+          git push
