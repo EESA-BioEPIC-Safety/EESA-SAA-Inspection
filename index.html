@@ -447,56 +447,82 @@ function submitForm() {
   if (!validateRequired()) return;
 
   document.getElementById('loadingOverlay').classList.add('active');
-  document.getElementById('loadingText').textContent = 'Submitting inspection...';
 
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMcghHzgWCP8pZACtxotqQbc4fJdfnT1LEtrNq4ZZzwtbf1rgWX5uhEdJRnMajmkaGkg/exec';
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEx2J6wrLc_eO0BqoYtFmIt6d_0d-_TZJkvSrv9lPzOMg27OIBx8bZB70weS2LyAVdcA/exec';
   var FOLDER_ID = '1u67JzfoCXIHXoE8enJcgvBbtoP7B_esl';
 
   var data = collectData();
   var photos = collectAllPhotos();
 
-  var sheetURL = SCRIPT_URL + '?data=' + encodeURIComponent(JSON.stringify({ data: data }));
+  // 1) Submit form data via POST
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify({ data: data })
+  })
+  .then(function () {
+    console.log('Form data sent');
 
-  fetch(sheetURL, { mode: 'no-cors' })
-    .then(function() {
-      if (photos.length === 0) { showSuccess(); return; }
+    // 2) If no photos, done
+    if (photos.length === 0) {
+      showSuccess();
+      return;
+    }
 
-      var photoIndex = 0;
-      function uploadNext() {
-        if (photoIndex >= photos.length) { showSuccess(); return; }
-        document.getElementById('loadingText').textContent = 'Uploading photo ' + (photoIndex + 1) + ' of ' + photos.length + '...';
-        var photo = photos[photoIndex];
+    // 3) Upload photos one by one
+    var photoIndex = 0;
+    showLoadingMessage('Uploading photo 1 of ' + photos.length + '...');
 
-        compressImage(photo.data, 1200, 0.7).then(function(compressedData) {
-          var payload = {
-            action: 'uploadPhotos',
-            folderId: FOLDER_ID,
-            inspectorName: data.inspected_by || 'Unknown',
-            date: data.date_inspected || new Date().toISOString().split('T')[0],
-            photos: [{
-              section: photo.section,
-              name: photo.name,
-              data: compressedData
-            }]
-          };
-
-          fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify(payload)
-          })
-          .then(function() { photoIndex++; uploadNext(); })
-          .catch(function() { photoIndex++; uploadNext(); });
-        });
+    function uploadNext() {
+      if (photoIndex >= photos.length) {
+        showSuccess();
+        return;
       }
 
-      uploadNext();
-    })
-    .catch(function() {
-      document.getElementById('loadingOverlay').classList.remove('active');
-      alert('Error submitting form. Please try again.');
-    });
+      showLoadingMessage('Uploading photo ' + (photoIndex + 1) + ' of ' + photos.length + '...');
+
+      var photo = photos[photoIndex];
+
+      compressImage(photo.data, 1200, 0.7).then(function (compressedData) {
+        var payload = {
+          action: 'uploadPhotos',
+          folderId: FOLDER_ID, // Apps Script can ignore this if it uses server constant
+          inspectorName: data.inspected_by || data.inspector_name || 'Unknown',
+          date: data.date_inspected || data.quest_date || new Date().toISOString().split('T')[0],
+          photos: [{
+            section: photo.section,
+            name: photo.name,
+            data: compressedData
+          }]
+        };
+
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(payload)
+        })
+        .then(function () {
+          console.log('Photo ' + (photoIndex + 1) + ' sent');
+          photoIndex++;
+          uploadNext();
+        })
+        .catch(function (error) {
+          console.error('Photo ' + (photoIndex + 1) + ' failed:', error);
+          photoIndex++;
+          uploadNext();
+        });
+      });
+    }
+
+    uploadNext();
+  })
+  .catch(function (error) {
+    console.error('Submit error:', error);
+    document.getElementById('loadingOverlay').classList.remove('active');
+    alert('Error submitting form. Please try again.');
+  });
 }
 
 function showSuccess() {
