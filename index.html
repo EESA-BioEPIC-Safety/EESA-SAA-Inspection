@@ -790,27 +790,81 @@
       document.getElementById("modalOverlay").classList.add("active");
     }
 
-    function compressImage(dataUrl, maxWidth, quality) {
-      return new Promise(function (resolve) {
-        const img = new Image();
-        img.onload = function () {
-          const canvas = document.createElement("canvas");
-          let w = img.width, h = img.height;
-          if (w > maxWidth) {
-            h = Math.round(h * maxWidth / w);
-            w = maxWidth;
-          }
-          canvas.width = w;
-          canvas.height = h;
-          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-          resolve(canvas.toDataURL("image/jpeg", quality));
-        };
-        img.onerror = function () { resolve(dataUrl); };
-        img.src = dataUrl;
-      });
-    }
+    function compressImage(dataUrl, maxWidth = 1200, quality = 0.7, targetBytes = 350 * 1024) {
+  return new Promise(function (resolve) {
+    const img = new Image();
 
-    document.addEventListener("DOMContentLoaded", init);
+    img.onload = function () {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      function toBytes(durl) {
+        const b64 = (durl.split(",")[1] || "");
+        return Math.floor(b64.length * 0.75);
+      }
+
+      // Initial resize to maxWidth
+      let w = img.width;
+      let h = img.height;
+      if (w > maxWidth) {
+        h = Math.round(h * (maxWidth / w));
+        w = maxWidth;
+      }
+
+      // Limits to avoid infinite loop / too tiny image
+      const MIN_WIDTH = 320;
+      const MIN_QUALITY = 0.35;
+      const MAX_STEPS = 10;
+
+      let curW = w;
+      let curH = h;
+      let curQ = quality;
+      let step = 0;
+
+      let bestDataUrl = dataUrl; // fallback
+
+      while (step < MAX_STEPS) {
+        canvas.width = curW;
+        canvas.height = curH;
+        ctx.clearRect(0, 0, curW, curH);
+        ctx.drawImage(img, 0, 0, curW, curH);
+
+        // Force JPEG for best size reduction
+        const out = canvas.toDataURL("image/jpeg", curQ);
+        bestDataUrl = out;
+
+        const size = toBytes(out);
+        if (size <= targetBytes) {
+          resolve(out);
+          return;
+        }
+
+        // Shrink strategy:
+        // 1) reduce quality first, then
+        // 2) reduce dimensions
+        if (curQ > MIN_QUALITY) {
+          curQ = Math.max(MIN_QUALITY, curQ - 0.08);
+        } else if (curW > MIN_WIDTH) {
+          curW = Math.max(MIN_WIDTH, Math.round(curW * 0.85));
+          curH = Math.max(Math.round(curH * 0.85), 1);
+        } else {
+          break;
+        }
+
+        step++;
+      }
+
+      // Return smallest/best attempt even if still above target
+      resolve(bestDataUrl);
+    };
+
+    img.onerror = function () {
+      resolve(dataUrl); // fallback
+    };
+
+    img.src = dataUrl;
+  });
+}
   </script>
 </body>
 </html>
