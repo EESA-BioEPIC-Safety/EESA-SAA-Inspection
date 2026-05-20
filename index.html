@@ -706,78 +706,80 @@
       if (el) el.textContent = message || "";
     }
 
-    function submitForm() {
-      if (!validateRequired()) return;
+ function submitForm() {
+  if (!validateRequired()) return;
 
-      document.getElementById("loadingOverlay").classList.add("active");
+  document.getElementById("loadingOverlay").classList.add("active");
 
-      const SCRIPT_URL = "https://script.google.com/a/macros/lbl.gov/s/AKfycbzqjrVu5oe7eSKHO3j6FLD_5ZFCV_SVSqXp1JmERJhEYOZPpuaN19OMVRybptisk-hgsQ/exec";
-      const FOLDER_ID = "1u67JzfoCXIHXoE8enJcgvBbtoP7B_esl";
+  const SCRIPT_URL = "https://script.google.com/a/macros/lbl.gov/s/AKfycby_OUYmEvm1TPP1wLgEILDQK-sRoAkPUokcuoTg21NCY0kSdLrKt65nTPjbQQIJ9cyv7g/exec";
 
-      const data = collectData();
-      const photos = collectAllPhotos();
+  const data = collectData();
+  const photos = collectAllPhotos();
 
-      fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain" },
-        body: JSON.stringify({ data: data })
-      })
-      .then(function () {
-        console.log("Form data sent");
+  showLoadingMessage("Saving form data...");
 
-        if (photos.length === 0) {
-          showSuccess();
-          return;
-        }
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({ data: data })
+  })
+  .then(response => response.json())
+  .then(result => {
+    if (!result.ok) throw new Error(result.error || "Failed to save form data");
 
-        let photoIndex = 0;
-        showLoadingMessage("Uploading photo 1 of " + photos.length + "...");
+    console.log("Form data saved successfully");
 
-        function uploadNext() {
-          if (photoIndex >= photos.length) {
-            showSuccess();
-            return;
-          }
+    if (photos.length === 0) {
+      showSuccess();
+      return;
+    }
 
-          showLoadingMessage("Uploading photo " + (photoIndex + 1) + " of " + photos.length + "...");
+    let photoIndex = 0;
 
-          const photo = photos[photoIndex];
+    function uploadNext() {
+      if (photoIndex >= photos.length) {
+        showSuccess();
+        return;
+      }
 
-          compressImage(photo.data, 1200, 0.7).then(function (compressedData) {
-            const payload = {
-              action: "uploadPhotos",
-              folderId: FOLDER_ID,
-              inspectorName: data.inspected_by || data.inspector_name || "Unknown",
-              date: data.date_inspected || data.quest_date || new Date().toISOString().split("T")[0],
-              photos: [{
-                section: photo.section,
-                name: photo.name,
-                data: compressedData
-              }]
-            };
+      showLoadingMessage("Uploading photo " + (photoIndex + 1) + " of " + photos.length + "...");
+      const photo = photos[photoIndex];
 
-            fetch(SCRIPT_URL, {
-              method: "POST",
-              mode: "no-cors",
-              headers: { "Content-Type": "text/plain" },
-              body: JSON.stringify(payload)
-            })
-            .then(function () {
-              console.log("Photo " + (photoIndex + 1) + " sent");
-              photoIndex++;
-              uploadNext();
-            })
-            .catch(function (error) {
-              console.error("Photo " + (photoIndex + 1) + " failed:", error);
-              photoIndex++;
-              uploadNext();
-            });
-          });
-        }
+      compressImage(photo.data, 1200, 0.7).then(function(compressedData) {
+        const payload = {
+          action: "uploadPhotos",
+          inspectorName: data.inspected_by || "Unknown",
+          date: data.date_inspected || new Date().toISOString().split("T")[0],
+          photos: [{ section: photo.section, name: photo.name, data: compressedData }]
+        };
 
-        uploadNext();
-      })
+        fetch(SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        })
+        .then(response => response.json())
+        .then(result => {
+          if (!result.ok) console.warn("Photo upload issue:", result.error);
+          photoIndex++;
+          uploadNext();
+        })
+        .catch(error => {
+          console.error("Photo " + (photoIndex + 1) + " failed:", error);
+          photoIndex++;
+          uploadNext();
+        });
+      });
+    }
+
+    uploadNext();
+  })
+  .catch(error => {
+    console.error("Submit error:", error);
+    document.getElementById("loadingOverlay").classList.remove("active");
+    alert("Error submitting form: " + error.message);
+  });
+})
       .catch(function (error) {
         console.error("Submit error:", error);
         document.getElementById("loadingOverlay").classList.remove("active");
