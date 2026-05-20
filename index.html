@@ -443,86 +443,84 @@ function collectAllPhotos() {
   return all;
 }
 
-function submitForm() {
+async function submitForm() {
   if (!validateRequired()) return;
 
-  document.getElementById('loadingOverlay').classList.add('active');
+  const loading = document.getElementById("loadingOverlay");
+  loading.classList.add("active");
+  showLoadingMessage("Submitting form...");
 
-  var SCRIPT_URL = 'https://script.google.com/a/macros/lbl.gov/s/AKfycby4zKT6-UDaezxEcXr9x9h3YkUHKxYAgEPzlmcoNU3ZoFHs2eBWzPOdLiGPdc8lkGNl6g/exec';
-  var FOLDER_ID = '1u67JzfoCXIHXoE8enJcgvBbtoP7B_esl';
+  const SCRIPT_URL = "https://script.google.com/a/macros/lbl.gov/s/AKfycbwT5qcu0wQqhu6AL796w4pShppoF8NFtLP2nD3UvPXz_LjYE5eieCFNpxVwCEBIt7zNJA/exec";
+  const FOLDER_ID = "1u67JzfoCXIHXoE8enJcgvBbtoP7B_esl"; // optional on client; server uses constant
 
-  var data = collectData();
-  var photos = collectAllPhotos();
+  const data = collectData();
+  const photos = collectAllPhotos();
 
-  // 1) Submit form data via POST
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify({ data: data })
-  })
-  .then(function () {
-    console.log('Form data sent');
+  try {
+    // 1) Submit form data
+    const formResp = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data })
+    });
 
-    // 2) If no photos, done
-    if (photos.length === 0) {
-      showSuccess();
-      return;
+    const formJson = await formResp.json();
+    if (!formJson.ok) {
+      throw new Error(formJson.error || "Form submission failed");
     }
 
-    // 3) Upload photos one by one
-    var photoIndex = 0;
-    showLoadingMessage('Uploading photo 1 of ' + photos.length + '...');
+    // 2) Upload photos one-by-one (smaller payloads)
+    if (photos.length > 0) {
+      for (let i = 0; i < photos.length; i++) {
+        showLoadingMessage(`Uploading photo ${i + 1} of ${photos.length}...`);
 
-    function uploadNext() {
-      if (photoIndex >= photos.length) {
-        showSuccess();
-        return;
-      }
+        const photo = photos[i];
 
-      showLoadingMessage('Uploading photo ' + (photoIndex + 1) + ' of ' + photos.length + '...');
+        // compress aggressively; adjust as needed
+        let compressed = await compressImage(photo.data, 1000, 0.6, 350 * 1024);
 
-      var photo = photos[photoIndex];
+        // extra fallback shrink if still too big
+        if (dataUrlSizeBytes(compressed) > 450 * 1024) {
+          compressed = await compressImage(compressed, 800, 0.45, 300 * 1024);
+        }
 
-      compressImage(photo.data, 1200, 0.7).then(function (compressedData) {
-        var payload = {
-          action: 'uploadPhotos',
-          folderId: FOLDER_ID, // Apps Script can ignore this if it uses server constant
-          inspectorName: data.inspected_by || data.inspector_name || 'Unknown',
-          date: data.date_inspected || data.quest_date || new Date().toISOString().split('T')[0],
+        const payload = {
+          action: "uploadPhotos",
+          folderId: FOLDER_ID,
+          inspectorName: data.inspected_by || data.inspector_name || "Unknown",
+          date: data.date_inspected || new Date().toISOString().split("T")[0],
           photos: [{
             section: photo.section,
             name: photo.name,
-            data: compressedData
+            data: compressed
           }]
         };
 
-        fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain' },
+        const photoResp = await fetch(SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
-        })
-        .then(function () {
-          console.log('Photo ' + (photoIndex + 1) + ' sent');
-          photoIndex++;
-          uploadNext();
-        })
-        .catch(function (error) {
-          console.error('Photo ' + (photoIndex + 1) + ' failed:', error);
-          photoIndex++;
-          uploadNext();
         });
-      });
+
+        const photoJson = await photoResp.json();
+        if (!photoJson.ok) {
+          throw new Error(`Photo ${i + 1} failed: ${photoJson.error || "upload error"}`);
+        }
+      }
     }
 
-    uploadNext();
-  })
-  .catch(function (error) {
-    console.error('Submit error:', error);
-    document.getElementById('loadingOverlay').classList.remove('active');
-    alert('Error submitting form. Please try again.');
-  });
+    showSuccess();
+  } catch (err) {
+    console.error("Submit error:", err);
+    loading.classList.remove("active");
+    alert("Error submitting form: " + (err.message || err));
+  }
+}
+
+// helper
+function dataUrlSizeBytes(dataUrl) {
+  const base64 = (dataUrl.split(",")[1] || "");
+  return Math.floor(base64.length * 0.75);
 }
 
 function showSuccess() {
